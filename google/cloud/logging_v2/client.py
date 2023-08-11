@@ -93,7 +93,7 @@ class Client(ClientWithProject):
                 If not passed, falls back to the default inferred
                 from the environment.
             credentials (Optional[google.auth.credentials.Credentials]):
-                Thehe OAuth2 Credentials to use for this
+                The OAuth2 Credentials to use for this
                 client. If not passed (and if no ``_http`` object is
                 passed), falls back to the default inferred from the
                 environment.
