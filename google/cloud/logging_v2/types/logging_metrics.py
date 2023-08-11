@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -79,6 +79,17 @@ class LogMetric(proto.Message):
                 "resource.type=gae_app AND severity>=ERROR"
 
             The maximum length of the filter is 20000 characters.
+        bucket_name (str):
+            Optional. The resource name of the Log Bucket that owns the
+            Log Metric. Only Log Buckets in projects are supported. The
+            bucket has to be in the same project as the metric.
+
+            For example:
+
+            ``projects/my-project/locations/global/buckets/my-bucket``
+
+            If empty, then the Log Metric is considered a non-Bucket Log
+            Metric.
         disabled (bool):
             Optional. If set to True, then this metric is
             disabled and it does not generate any points.
@@ -113,7 +124,7 @@ class LogMetric(proto.Message):
             distribution logs-based metric to extract the values to
             record from a log entry. Two functions are supported for
             value extraction: ``EXTRACT(field)`` or
-            ``REGEXP_EXTRACT(field, regex)``. The argument are:
+            ``REGEXP_EXTRACT(field, regex)``. The arguments are:
 
             1. field: The name of the log entry field from which the
                value is to be extracted.
@@ -142,7 +153,7 @@ class LogMetric(proto.Message):
             ``value_extractor`` field.
 
             The extracted value is converted to the type defined in the
-            label descriptor. If the either the extraction or the type
+            label descriptor. If either the extraction or the type
             conversion fails, the label will have a default value. The
             default value for a string label is an empty string, for an
             integer label its 0, and for a boolean label its ``false``.
@@ -192,6 +203,10 @@ class LogMetric(proto.Message):
     filter: str = proto.Field(
         proto.STRING,
         number=3,
+    )
+    bucket_name: str = proto.Field(
+        proto.STRING,
+        number=13,
     )
     disabled: bool = proto.Field(
         proto.BOOL,
